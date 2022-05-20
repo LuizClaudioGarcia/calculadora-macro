@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon --exec babel-node src/server.js",
     "build": "babel src --out-dir lib",
-    "start": "babel-node index.js"
+    "start": "node lib/index.js"
   },
   "author": "Luiz Claudio",
   "license": "ISC",
