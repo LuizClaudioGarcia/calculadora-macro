@@ -1,17 +1,12 @@
-import {getAllFoods,getFoodByName} from './functions'
+
+import ControllerFood from './ControllerFood'
 
 const express = require('express')
 const app = express();
 app.use(express.json());
 
-app.get("/getAllFoods", async (req,res) => {
-    let result = await getAllFoods()
-    return res.json(result);
-})
-
-app.get("/getFoodByName", async (req,res) => {
-    let result = await getFoodByName(req.body)
-    return res.json(result)
-})
+// Routes
+app.get("/getAllFoods", ControllerFood.getAllFoods )
+app.get("/getFoodByName", ControllerFood.getFoodByName)
 
 module.exports = app;
