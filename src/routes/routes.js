@@ -1,5 +1,5 @@
 
-import ControllerFood from './ControllerFood'
+import ControllerFood from '../controllers/ControllerFood'
 
 const express = require('express')
 const app = express();
