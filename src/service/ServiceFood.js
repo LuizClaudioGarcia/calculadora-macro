@@ -2,7 +2,6 @@ import foodList from '../fakeApi/api'
 import {simplifyString} from '../commons/utils'
 
 class ServiceFood{
-
     async getAll(){
         return await foodList.then((el) => el)
     }
