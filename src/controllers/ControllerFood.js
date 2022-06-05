@@ -4,8 +4,13 @@ class ControllerFood{
     async getAllFoods(req, res){
         return res.json( await foodService.getAll().then( (e) => e));
     }
+    
     async getFoodByName(req, res){
         return res.json( await foodService.byName(req.body).then( (e) => e));
+    }
+
+    async getFoodById(req, res){
+        return res.json( await foodService.byId(req.body).then( (e) => e));
     }
 }
 

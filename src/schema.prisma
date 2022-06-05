@@ -8,12 +8,17 @@ generator client {
 }
 
 model Users {
-  id         Int       @id @default(autoincrement())
-  nascimento DateTime  @default(now())
-  email      String    @unique
+  id         Int          @id @default(autoincrement())
+  nascimento DateTime     @default(now())
+  email      String       @unique
   sex        String
   name       String?
+  altura     Float?
+  createdAt  DateTime     @default(now())
   History    History[]
+  UserConfig UserConfig[]
+  DiaryGoals DiaryGoals[]
+  FoodsEated FoodsEated[]
 }
 
 model History {
@@ -21,7 +26,79 @@ model History {
   user   Users @relation(fields: [userId], references: [id])
   userId Int
 
-  peso   Float
-  altura Float
+  peso         Float?
+  steps        Int?
+  distance     Int?
+  protein      Float?
+  carbohydrate Float?
+  kcal         Float?
+  date         DateTime? @default(now())
+}
+
+model UserConfig {
+  id     Int   @id @default(autoincrement())
+  user   Users @relation(fields: [userId], references: [id])
+  userId Int
+
+  wpp_notify Int @default(0)
+
+}
+
+model DiaryGoals {
+  id     Int   @id @default(autoincrement())
+  user   Users @relation(fields: [userId], references: [id])
+  userId Int
+
+  objective      String
+  intensity      String
+  gymDaysPerWeek Int
+  steps          Int?
+  distance       Int?
+  protein        Int?
+  carbohydrate   Int?
+  kcal           Int?
+}
+
+model FoodsEated {
+  id     Int   @id @default(autoincrement())
+  user   Users @relation(fields: [userId], references: [id])
+  userId Int
+
+  food   FoodList  @relation(fields: [foodId], references: [id])
+  foodId Int
+  amount Int
   date   DateTime? @default(now())
+}
+
+model FoodList {
+  id                Int          @id @default(autoincrement())
+  name              String?
+  category          String?
+  humidity_percents String?
+  energy_kcal       String?
+  energy_kj         String?
+  protein_g         String?
+  lipid_g           String?
+  cholesterol_mg    String?
+  carbohydrate_g    String?
+  fiber_g           String?
+  ashes_g           String?
+  calcium_mg        String?
+  magnesium_mg      String?
+  manganese_mg      String?
+  phosphorus_mg     String?
+  iron_mg           String?
+  sodium_mg         String?
+  potassium_mg      String?
+  copper_mg         String?
+  zinc_mg           String?
+  retinol_mcg       String?
+  re_mcg            String?
+  rae_mcg           String?
+  thiamine_mg       String?
+  riboflavin_mg     String?
+  pyridoxine_mg     String?
+  niacin_mg         String?
+  vitaminC_mg       String?
+  FoodsEated        FoodsEated[]
 }

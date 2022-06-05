@@ -24,6 +24,9 @@ class ControllerUser{
         return res.json(await userService.update( req.body ).then((e) => e))
     }
     
+    async insertFoodEated(req,res){
+        return res.json(await userService.insertFood( req.body ).then((e) => e))
+    }
 }
 
 module.exports = new ControllerUser()

@@ -1,9 +1,5 @@
-import { PrismaClient } from '@prisma/client'
 import {formatUpdateArray} from '../commons/utils'
-
-const prisma = new PrismaClient({
-    rejectOnNotFound: true,
-})
+import { prisma } from "../commons/db"
 
 class User{
     async getAll(){
@@ -15,6 +11,7 @@ class User{
     }
 
     async getBy(where){
+
         try{
             return await prisma.Users.findMany({where})
         }catch(e){
@@ -30,12 +27,12 @@ class User{
                     email: body.email,
                     nascimento: new Date(body.nascimento),
                     sex: body.sex,
+                    altura: body.altura,
 
                     History:{
                         create:[
                             {
                                 peso: body.peso,
-                                altura: body.altura,
                             }
                         ]
                     }
@@ -60,7 +57,20 @@ class User{
             return e.meta.cause
         }
     }   
-    
+
+    async insertFood(body){
+        try{
+            return await prisma.FoodsEated.create({
+                data:{
+                    userId: body.userId,
+                    foodId: body.foodId,
+                    amount: body.amount,
+                }
+            })
+        }catch(e){
+            return e
+        }
+    }
 }
 
 module.exports = new User();

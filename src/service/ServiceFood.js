@@ -1,24 +1,42 @@
-import foodList from '../fakeApi/api'
+import { foodList } from '../foods/api'
+import { prisma } from "../commons/db"
 import {simplifyString} from '../commons/utils'
 
 class ServiceFood{
     async getAll(){
-        return await foodList.then((el) => el)
+        try{
+            return await prisma.FoodList.findMany()
+        }catch(e){
+            return e
+        }
     }
 
     async byName(body){
-        let comidaNome = simplifyString(body.nome)
-        let arrFood = [];
-    
-        await foodList.then((el)  => {
-            el.forEach(food => {
-                let simplifyed = simplifyString(food.description)
-                if( simplifyed.includes( comidaNome ) ){
-                    arrFood.push(food)
+        try{
+            return await prisma.FoodList.findMany({
+                where:{
+                    name: {
+                        contains: body.nome
+                    }
                 }
             })
-        })
-        return arrFood;
+        }catch(e){
+            return e
+        }
+    }
+
+    async byId(body){
+        try{
+            return await prisma.FoodList.findMany({
+                where:{
+                    id: {
+                        contains: body.id
+                    }
+                }
+            })
+        }catch(e){
+            return e
+        }
     }
 }
 

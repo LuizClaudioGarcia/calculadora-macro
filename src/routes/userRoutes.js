@@ -12,5 +12,6 @@ routes.get("/getUsersBy", ControllerUser.getUserBy )
 routes.post("/createNewUser", ControllerUser.createUser )
 routes.post("/updateUser", ControllerUser.updateUser )
 
+routes.post("/insertFoodEated", ControllerUser.insertFoodEated)
 
 module.exports = routes;
